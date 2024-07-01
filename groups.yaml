@@ -2,7 +2,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Domain
 metadata:
-  name: eda-apps
+  name: eda-domain
   description: Everything related to Event-Driven Applications
 spec:
   owner: group:eda
