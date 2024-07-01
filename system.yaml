@@ -1,14 +1,14 @@
 apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
-  name: hello-world-system
-  description: 'Hello-world'
+  name: event-driven-system
+  description: 'An event-driven system'
   annotations:
     github.com/project-slug: mmussett/flogo-hello-world
     backstage.io/techdocs-ref: dir:.
   tags:
-    - flogo
-    - api
+    - eda
+    - kafka
 spec:
-  owner: group:flogo-developers
-  domain: flogo-apps
+  owner: group:kafka-messaging-group
+  domain: eda-domain
