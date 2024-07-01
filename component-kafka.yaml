@@ -9,19 +9,3 @@ spec:
   lifecycle: production
   owner: group:kafka-messaging-group
   system: event-driven-system
----
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: topic.sample
-  description: Some description of the component-name component
-spec:
-  type: topic
-  lifecycle: production
-  owner: group:kafka-messaging-group
-  subcomponentOf: kafka-broker
-  system: event-driven-system
-  properties:
-  - name: name
-    type: string
-    required: true
