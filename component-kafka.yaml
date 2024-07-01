@@ -9,5 +9,14 @@ spec:
   lifecycle: production
   owner: group:kafka-messaging-group
   system: event-driven-system
-  providesTopics:
-    - topics.sample
+   
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: topics.sample
+  description: Description of topics.sample
+spec:
+  type: topic
+  owner: kafka-broker
+  system: event-driven-system
