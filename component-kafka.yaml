@@ -5,7 +5,7 @@ metadata:
   name: kafka-broker
   description: Some description of the kafka-broker component
 spec:
-  type: service
+  type: message-broker
   lifecycle: production
   owner: group:kafka-messaging-group
   system: event-driven-system
