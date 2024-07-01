@@ -19,5 +19,4 @@ spec:
   type: topic
   lifecycle: production
   owner: kafka-broker
-  system: event-driven-system
-  parent: kafka-broker
+  subcomponentOf: kafka-broker
