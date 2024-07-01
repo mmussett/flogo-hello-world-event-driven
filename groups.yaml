@@ -10,28 +10,15 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
-  name: acme-messaging-group
-  description: ACME Messaging Group
+  name: tibco-messaging-group
+  description: TIBCO Messaging Group
 spec:
   type: department
   profile:
-    displayName: ACME Messaging Group
-    email: info@acme.com
+    displayName: TIBCO Messaging Group
+    email: messaging@tibco.com
   parent: group:eda
-  children: [kafka-messaging-group, ftl-messaging-group, ems-messaging-group]
----
-apiVersion: backstage.io/v1alpha1
-kind: Group
-metadata:
-  name: kafka-messaging-group
-  description: Kafka Messaging Group
-spec:
-  type: department
-  profile:
-    displayName: Kafka Messaging Group
-    email: info@acme.com
-  parent: acme-messaging-group
-  children: []
+  children: [pulsar-messaging-group, kafka-messaging-group, ftl-messaging-group, ems-messaging-group]
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Group
@@ -42,8 +29,8 @@ spec:
   type: department
   profile:
     displayName: TIBCO FTL Messaging Group
-    email: info@acme.com
-  parent: acme-messaging-group
+    email: messaging@tibco.com
+  parent: tibco-messaging-group
   children: []
 ---
 apiVersion: backstage.io/v1alpha1
@@ -55,6 +42,58 @@ spec:
   type: department
   profile:
     displayName: TIBCO EMS Messaging Group
-    email: info@acme.com
-  parent: acme-messaging-group
+    email: messaging@tibco.com
+  parent: tibco-messaging-group
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: rv-messaging-group
+  description: TIBCO Rendezvous Messaging Group
+spec:
+  type: department
+  profile:
+    displayName: TIBCO RV Messaging Group
+    email: messaging@tibco.com
+  parent: tibco-messaging-group
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: kafka-messaging-group
+  description: TIBCO Castle - Kafka Messaging Group
+spec:
+  type: department
+  profile:
+    displayName: TIBCO Castle - Kafka Messaging Group
+    email: messaging@tibco.com
+  parent: tibco-messaging-group
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: pulsar-messaging-group
+  description: TIBCO Quasar - Apache Pulsar Messaging Group
+spec:
+  type: department
+  profile:
+    displayName: TIBCO Quasar - Apache Pulsar Messaging Group
+    email: messaging@tibco.com
+  parent: tibco-messaging-group
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: mosquitto-messaging-group
+  description: TIBCO Messaging - Apache Mosquitto Messaging Group
+spec:
+  type: department
+  profile:
+    displayName: Apache Mosquitto Messaging Group
+    email: messaging@tibco.com
+  parent: tibco-messaging-group
   children: []
