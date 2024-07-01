@@ -20,3 +20,8 @@ spec:
   lifecycle: production
   owner: group:kafka-messaging-group
   subcomponentOf: kafka-broker
+  system: event-driven-system
+  properties:
+  - name: name
+    type: string
+    required: true
