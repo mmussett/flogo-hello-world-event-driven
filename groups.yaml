@@ -1,0 +1,124 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: eda-apps
+  description: Everything related to Event-Driven Applications
+spec:
+  owner: group:eda
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: acme-solution-engineering
+  description: Our DevOps Group
+spec:
+  type: organization
+  profile:
+    displayName: ACME Solution Engineering
+    email: info@acme.com
+  children: [flogo-developers, businessevents-developers, sre]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: sre
+  description: Our Site Reliability Engineers Group
+spec:
+  type: department
+  profile:
+    displayName: Site Reliability Engineering Group
+    email: info@acme.com
+  parent: acme-solution-engineering
+  children: [acme-messaging-group]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: flogo-developers
+  description: Flogo Developers Group
+spec:
+  type: department
+  profile:
+    displayName: Flogo Developers
+    email: info@acme.com
+  parent: acme-solution-engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: sre
+  description: Our Site Reliability Engineers Group
+spec:
+  type: department
+  profile:
+    displayName: Site Reliability Engineering Group
+    email: info@acme.com
+  parent: acme-solution-engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: businessevents-developers
+  description: BusinessEvents Developers Group
+spec:
+  type: department
+  profile:
+    displayName: BusinessEvents Developers
+    email: info@acme.com
+  parent: acme-solution-engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: acme-messaging-group
+  description: ACME Messaging Group
+spec:
+  type: department
+  profile:
+    displayName: ACME Messaging Group
+    email: info@acme.com
+  parent: acme-solution-engineering
+  children: [kafka-messaging-team, ftl-messaging-team]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: kafka-messaging-group
+  description: Kafka Messaging Group
+spec:
+  type: department
+  profile:
+    displayName: Kafka Messaging Group
+    email: info@acme.com
+  parent: acme-messaging-group
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: ftl-messaging-group
+  description: TIBCO FTL Messaging Group
+spec:
+  type: department
+  profile:
+    displayName: TIBCO FTL Messaging Group
+    email: info@acme.com
+  parent: acme-messaging-group
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: ems-messaging-group
+  description: TIBCO EMS Messaging Group
+spec:
+  type: department
+  profile:
+    displayName: TIBCO EMS Messaging Group
+    email: info@acme.com
+  parent: acme-messaging-group
+  children: []
