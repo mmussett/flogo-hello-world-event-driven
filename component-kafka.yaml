@@ -4,6 +4,10 @@ kind: Component
 metadata:
   name: kafka-broker
   description: Some description of the kafka-broker component
+  tags:
+  - kafka
+  - messaging
+  - event-driven-system
 spec:
   type: message-broker
   lifecycle: production

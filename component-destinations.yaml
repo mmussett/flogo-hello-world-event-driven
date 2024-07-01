@@ -4,6 +4,9 @@ kind: Component
 metadata:
   name: topic.sample
   description: Some description of the component-name component
+  tags:
+    - topic
+    - kafka
 spec:
   type: topic
   lifecycle: production
@@ -16,6 +19,9 @@ kind: Component
 metadata:
   name: topic.helloworld
   description: Some description of the component-name component
+  tags:
+    - topic
+    - kafka
 spec:
   type: topic
   lifecycle: production
