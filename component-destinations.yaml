@@ -1,22 +1,25 @@
+---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: queue.sample
-  description: A Point-to-Point Queue for sample messages
-  tags:
-    - queue
-    - sample
-  links:
-    - title: Repository
-      url: https://github.com/mmussett/developer-hub-eday/blob/master/
-  annotations:
-    github.com/project-slug: mmussett/developer-h
-    backstage.io/techdocs-ref: dir:.
+  name: topic.sample
+  description: Some description of the component-name component
 spec:
-  type: destination
-  lifecycle: experimental
-  system: eda-system
-  owner: flogo-developers
-  providesApis:
-    - flogo-hello-world-api
-
+  type: topic
+  lifecycle: production
+  owner: group:kafka-messaging-group
+  subcomponentOf: kafka-broker
+  system: event-driven-system
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: topic.helloworld
+  description: Some description of the component-name component
+spec:
+  type: topic
+  lifecycle: production
+  owner: group:kafka-messaging-group
+  subcomponentOf: kafka-broker
+  system: event-driven-system
+  
