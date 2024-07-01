@@ -12,6 +12,10 @@ kind: Group
 metadata:
   name: tibco-messaging-group
   description: TIBCO Messaging Group
+  tags:
+    - messaging
+    - tibco
+    - eda
 spec:
   type: department
   profile:
@@ -24,7 +28,12 @@ apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
   name: ftl-messaging-group
-  description: TIBCO FTL Messaging Group
+  description: TIBCO FTL Messaging Group  
+  tags:
+    - messaging
+    - tibco
+    - eda
+    - ftl
 spec:
   type: department
   profile:
@@ -38,6 +47,11 @@ kind: Group
 metadata:
   name: ems-messaging-group
   description: TIBCO EMS Messaging Group
+  tags:
+    - messaging
+    - tibco
+    - eda
+    - ems
 spec:
   type: department
   profile:
@@ -51,6 +65,11 @@ kind: Group
 metadata:
   name: rv-messaging-group
   description: TIBCO Rendezvous Messaging Group
+  tags:
+    - messaging
+    - tibco
+    - eda
+    - rv
 spec:
   type: department
   profile:
@@ -64,6 +83,12 @@ kind: Group
 metadata:
   name: kafka-messaging-group
   description: TIBCO Castle - Kafka Messaging Group
+  tags:
+    - messaging
+    - tibco
+    - eda
+    - kafka
+    - apache
 spec:
   type: department
   profile:
@@ -77,6 +102,13 @@ kind: Group
 metadata:
   name: pulsar-messaging-group
   description: TIBCO Quasar - Apache Pulsar Messaging Group
+  tags:
+    - messaging
+    - tibco
+    - eda
+    - kafka
+    - pulsar
+    - apache
 spec:
   type: department
   profile:
@@ -90,6 +122,12 @@ kind: Group
 metadata:
   name: mosquitto-messaging-group
   description: TIBCO Messaging - Apache Mosquitto Messaging Group
+  tags:
+    - messaging
+    - tibco
+    - eda
+    - mqtt
+    - apache
 spec:
   type: department
   profile:

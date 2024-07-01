@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: hello-world-system
+  description: 'Hello-world'
+  annotations:
+    github.com/project-slug: mmussett/flogo-hello-world
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - flogo
+    - api
+spec:
+  owner: group:flogo-developers
+  domain: flogo-apps

@@ -1,0 +1,25 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: flogo-hello-world-api
+  description: Flogo Hello World REST API
+  tags:
+    - rest
+  links:
+    - url: https://github.com/mmussett/flogo-hello-world
+      title: GitHub Repo 
+      icon: github 
+    - url: https://github.com/mmussett/flogo-hello-world/blob/main/api-spec/openapi.yaml
+      title: API Spec 
+      icon: code
+    - url: https://editor.swagger.io/?spec=https://github.com/mmussett/flogo-hello-world/blob/main/api-spec/openapi.yaml
+      title: Swagger Editor 
+      icon: code
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: flogo-developers
+  apiConsumedBy: 
+    - components:flogo-hello-world
+  definition:
+    $text: ./api-spec/openapi.yaml
