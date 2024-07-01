@@ -18,4 +18,5 @@ metadata:
 spec:
   type: topic
   lifecycle: production
+  owner: group:kafka-messaging-group
   subcomponentOf: kafka-broker
