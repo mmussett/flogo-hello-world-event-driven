@@ -30,7 +30,7 @@ spec:
     displayName: Site Reliability Engineering Group
     email: info@acme.com
   parent: acme-solution-engineering
-  children: [acme-messaging-group]
+  children: []
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Group
@@ -82,7 +82,7 @@ spec:
     displayName: ACME Messaging Group
     email: info@acme.com
   parent: acme-solution-engineering
-  children: [kafka-messaging-team, ftl-messaging-team]
+  children: [kafka-messaging-group, ftl-messaging-group, ems-messaging-group]
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Group
