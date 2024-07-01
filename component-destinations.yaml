@@ -9,7 +9,7 @@ metadata:
     - kafka
 spec:
   type: topic
-  lifecycle: production
+  lifecycle: experimental
   owner: group:kafka-broker
   subcomponentOf: kafka-broker
   system: event-driven-system
