@@ -10,7 +10,7 @@ metadata:
 spec:
   type: topic
   lifecycle: production
-  owner: group:kafka-messaging-group
+  owner: group:kafka-broker
   subcomponentOf: kafka-broker
   system: event-driven-system
 ---
@@ -25,7 +25,7 @@ metadata:
 spec:
   type: topic
   lifecycle: production
-  owner: group:kafka-messaging-group
+  owner: group:kafka-broker
   subcomponentOf: kafka-broker
   system: event-driven-system
   
