@@ -8,6 +8,6 @@ spec:
   type: service
   lifecycle: production
   owner: group:kafka-messaging-group
-  system: kafka-broker
+  system: event-driven-system
   providesTopics:
     - topics.sample
