@@ -1,0 +1,13 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: kafka-broker
+  description: Some description of the kafka-broker component
+spec:
+  type: service
+  lifecycle: production
+  owner: group:kafka-messaging-group
+  system: kafka-broker
+  providesTopics:
+    - topics.sample
