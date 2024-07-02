@@ -1,0 +1,13 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: hello-world-event
+  description: Some description of the event component
+  tags:
+  - event
+spec:
+  type: event
+  lifecycle: production
+  owner: group:kafka-messaging-group
+  system: event-driven-system
