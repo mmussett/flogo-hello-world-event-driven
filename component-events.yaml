@@ -11,3 +11,8 @@ spec:
   lifecycle: production
   owner: group:kafka-messaging-group
   system: event-driven-system
+  publishedBy:
+  - component:flogo-hello-world-event-publisher
+  consumedBy: []
+  dependsOn:
+  - component:topic.sample
