@@ -13,6 +13,5 @@ spec:
   system: event-driven-system
   publishedBy:
   - component:flogo-hello-world-event-publisher
-  consumedBy: []
-  subcomponentOf: 
-  - topic.helloworld
+  consumedBy:
+  - component:flogo-hello-world-event-subscriber
