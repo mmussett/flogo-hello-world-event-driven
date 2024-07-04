@@ -16,3 +16,4 @@ spec:
   consumedBy: []
   dependsOn:
   - component:topic.sample
+  subcomponentOf: topic.helloworld
