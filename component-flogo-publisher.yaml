@@ -23,4 +23,5 @@ spec:
   owner: flogo-developers
   publishes:
     - type: event
-      target: hello-world-event
+      name: hello-world-event
+      description: Published when the hello-world event is received
