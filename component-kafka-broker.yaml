@@ -1,0 +1,19 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: kafka-broker
+  description: Some description of the kafka-broker component
+  tags:
+    - kafka
+    - broker
+    - event-driven-system
+  links:
+    - url: http://kafka-server.vmlab.live:8080/ui/clusters/local/brokers
+      title: Kafka Dashboard
+      icon: dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: group:kafka-messaging-group
+  system: event-driven-system
