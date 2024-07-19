@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: helloworld
+  description: Some description of the component-name component
+  tags:
+    - topic
+    - kafka
+  annotations:
+    backstage.io/display.color: '#FFA500'
+  links:
+    - url: http://kafka-server.vmlab.live:8080/ui/clusters/local/all-topics/helloworld
+      title: View helloworld topic on Kafka Server
+      icon: dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: group:kafka-messaging-group
+  subcomponentOf: kafka-broker
+  system: event-driven-system
+  
