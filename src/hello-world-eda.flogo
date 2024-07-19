@@ -1,0 +1,220 @@
+{
+  "imports": [
+    "github.com/project-flogo/flow",
+    "github.com/project-flogo/contrib/activity/noop",
+    "github.com/tibco/flogo-general/src/app/General/activity/log",
+    "github.com/tibco/wi-plugins/contributions/kafka/src/app/Kafka/activity/commit",
+    "github.com/tibco/wi-plugins/contributions/kafka/src/app/Kafka/trigger/consumer",
+    "github.com/project-flogo/contrib/function/string",
+    "github.com/tibco/wi-plugins/contributions/kafka/src/app/Kafka/connector/kafka"
+  ],
+  "name": "hello-world-eda",
+  "description": "",
+  "version": "1.0.0",
+  "type": "flogo:app",
+  "appModel": "1.1.1",
+  "tags": [],
+  "triggers": [
+    {
+      "ref": "#consumer",
+      "name": "tibco-kafka-consumer-trigger",
+      "description": "",
+      "settings": {
+        "kafkaConnection": "conn://f768ee3f-8505-4af0-b9ae-225fa39400ba"
+      },
+      "id": "KafkaConsumer",
+      "handlers": [
+        {
+          "description": "",
+          "settings": {
+            "topic": "helloworld",
+            "topicPattern": "",
+            "consumerGroup": "1",
+            "valueType": "JSON",
+            "subjects": "String",
+            "versions": 1,
+            "commitInterval": 5000,
+            "initialOffset": "Newest",
+            "fetchMinBytes": 1,
+            "fetchMaxWait": 500,
+            "heartbeatInterval": 3000,
+            "sessionTimeout": 30000
+          },
+          "action": {
+            "ref": "github.com/project-flogo/flow",
+            "settings": {
+              "flowURI": "res://flow:helloWorldFlow"
+            },
+            "input": {
+              "topic": "=$.topic",
+              "partition": "=$.partition",
+              "offset": "=$.offset",
+              "key": "=$.key",
+              "jsonValue": "=$.jsonValue",
+              "headers": "=$.headers"
+            }
+          },
+          "schemas": {
+            "output": {
+              "jsonValue": {
+                "type": "json",
+                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"greeting\":{\"type\":\"string\"}}}",
+                "fe_metadata": "{\n    \"greeting\":\"Mark Mussett\"\n}"
+              }
+            }
+          },
+          "name": "helloWorldFlow"
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "flow:helloWorldFlow",
+      "data": {
+        "name": "helloWorldFlow",
+        "description": "",
+        "links": [
+          {
+            "id": 1,
+            "from": "StartActivity",
+            "to": "LogMessage",
+            "type": "label",
+            "label": "StartActivity to LogMessage"
+          },
+          {
+            "id": 2,
+            "from": "LogMessage",
+            "to": "KafkaCommitOffset",
+            "type": "label",
+            "label": "LogMessage to KafkaCommitOffset"
+          }
+        ],
+        "tasks": [
+          {
+            "id": "StartActivity",
+            "name": "StartActivity",
+            "description": "NoOp Activity",
+            "activity": {
+              "ref": "#noop"
+            }
+          },
+          {
+            "id": "LogMessage",
+            "name": "LogMessage",
+            "description": "Simple Log Message Activity",
+            "activity": {
+              "ref": "#log",
+              "input": {
+                "Log Level": "INFO",
+                "flowInfo": false,
+                "message": "=string.concat('Hello, ',$flow.jsonValue.greeting)",
+                "logLevel": ""
+              }
+            }
+          },
+          {
+            "id": "KafkaCommitOffset",
+            "name": "KafkaCommitOffset",
+            "description": "",
+            "activity": {
+              "ref": "#commit"
+            }
+          }
+        ],
+        "fe_metadata": "eyJTdGFydEFjdGl2aXR5Ijp7IngiOjEwMSwieSI6MTAwfSwiTG9nTWVzc2FnZSI6eyJ4IjoyMzIsInkiOjk0fSwiS2Fma2FDb21taXRPZmZzZXQiOnsieCI6NTA2LCJ5Ijo5NH19",
+        "metadata": {
+          "input": [
+            {
+              "name": "topic",
+              "type": "string"
+            },
+            {
+              "name": "partition",
+              "type": "integer"
+            },
+            {
+              "name": "offset",
+              "type": "integer"
+            },
+            {
+              "name": "key",
+              "type": "string"
+            },
+            {
+              "name": "jsonValue",
+              "type": "object",
+              "schema": {
+                "type": "json",
+                "value": "{\"greeting\":{\"type\":\"string\"}}"
+              }
+            },
+            {
+              "name": "headers",
+              "type": "object"
+            }
+          ],
+          "output": [],
+          "fe_metadata": {
+            "input": "{\"type\":\"object\",\"title\":\"KafkaConsumer\",\"properties\":{\"topic\":{\"type\":\"string\",\"required\":false},\"partition\":{\"type\":\"integer\",\"required\":false},\"offset\":{\"type\":\"integer\",\"required\":false},\"key\":{\"type\":\"string\",\"required\":false},\"jsonValue\":{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"greeting\":{\"type\":\"string\"}}},\"headers\":{\"type\":\"object\"}}}"
+          }
+        },
+        "explicitReply": true
+      }
+    }
+  ],
+  "properties": [
+    {
+      "name": "Kafka.devKafkaServer.Brokers",
+      "type": "string",
+      "value": "kafka-server.vmlab.live:443"
+    },
+    {
+      "name": "Kafka.devKafkaServer.Connection_Timeout",
+      "type": "float64",
+      "value": 30
+    },
+    {
+      "name": "Kafka.devKafkaServer.Retry_Backoff",
+      "type": "float64",
+      "value": 250
+    }
+  ],
+  "connections": {
+    "f768ee3f-8505-4af0-b9ae-225fa39400ba": {
+      "id": "f768ee3f-8505-4af0-b9ae-225fa39400ba",
+      "name": "devKafkaServer",
+      "ref": "#kafka",
+      "isGlobal": false,
+      "settings": {
+        "name": "devKafkaServer",
+        "description": "Apache Kafka client configuration",
+        "brokers": "=$property[\"Kafka.devKafkaServer.Brokers\"]",
+        "authMode": "None",
+        "userName": "",
+        "password": "",
+        "clientID": "",
+        "clientSecret": "",
+        "tokenURL": "",
+        "scope": "",
+        "securityProtocol": "SASL_SSL",
+        "clientCert": "",
+        "clientKey": "",
+        "caCert": "",
+        "connectionTimeout": "=$property[\"Kafka.devKafkaServer.Connection_Timeout\"]",
+        "retryBackoff": "=$property[\"Kafka.devKafkaServer.Retry_Backoff\"]",
+        "retryMax": 3,
+        "refreshFrequency": 40,
+        "useSchmaRegistry": false,
+        "url": "",
+        "userName_schemaRegistry": "",
+        "password_schemaRegistry": ""
+      }
+    }
+  },
+  "contrib": "W3sicmVmIjoiZ2l0aHViLmNvbS90aWJjby93aS1wbHVnaW5zL2NvbnRyaWJ1dGlvbnMva2Fma2Evc3JjL2FwcC9LYWZrYSIsImlkIjoiS2Fma2EiLCJ2ZXJzaW9uIjoiMS4zLjIiLCJ0YWciOiIxLjMuMi1iMDEiLCJuYW1lIjoiQXBhY2hlIEthZmthIiwiczNsb2NhdGlvbiI6IlRpYmNvL0thZmthIiwiaXNVc2VyRXh0ZW5zaW9uIjpmYWxzZX0seyJyZWYiOiJnaXRodWIuY29tL3RpYmNvL2Zsb2dvLWdlbmVyYWwvc3JjL2FwcC9HZW5lcmFsIiwiaWQiOiJHZW5lcmFsIiwidmVyc2lvbiI6IjEuNi4xIiwidGFnIjoiMS42LjEtYjA3IiwibmFtZSI6IkdlbmVyYWwiLCJzM2xvY2F0aW9uIjoiVGliY28vR2VuZXJhbCIsImlzVXNlckV4dGVuc2lvbiI6ZmFsc2V9XQ==",
+  "metadata": {
+    "endpoints": [],
+    "flogoVersion": "2.25.0"
+  }
+}

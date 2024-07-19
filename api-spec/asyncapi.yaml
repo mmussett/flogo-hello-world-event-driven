@@ -1,0 +1,51 @@
+asyncapi: 3.0.0
+info:
+  title: Hello world flogo application
+  version: 1.0.0
+  description: A simple hello world flogo application
+  contact:
+    name: Flogo Authors
+    url: https://flogo.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+    
+servers:
+  devKafkaServer:
+    description: A local development Kafka server
+    host: kafka-server.vmlab.live:443
+    protocol: kafka
+
+
+operations: 
+  onReceiveHelloWorld:
+    description: A simple hello world operation
+    action: receive
+    channel:
+      $ref: '#/channel/helloWorldChannel'
+
+channels:
+  helloWorldChannel:
+    description: A simple hello world channel
+    address: helloworld
+    messages:
+      helloWorldMessage:
+        $ref: '#/components/message/helloWorldMessage'
+
+
+components:
+  messages:
+    helloWorldMessage:
+      summary: A simple hello world message
+      description: A message containing a hello world payload
+      payload:
+        type: object
+        properties:
+          greeting:
+            type: string
+            description: The greeting message
+
+            
+        
+
+
