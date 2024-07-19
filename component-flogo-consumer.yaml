@@ -10,14 +10,16 @@ metadata:
     - event-driven-system
   links:
     - title: Repository
+      description: GitHub repository
       url: https://github.com/mmussett/developer-hub-eda
     - title: VSCode
+      description: Edit in VSCode
       url: vscode://vscode.git/clone?url=https://github.com/mmussett/developer-hub-eda
   annotations:
     github.com/project-slug: mmussett/mmussett/developer-hub-eda
     backstage.io/techdocs-ref: dir:.
 spec:
-  type: service
+  type: component
   lifecycle: production
   system: event-driven-system
   owner: flogo-developers
