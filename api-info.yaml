@@ -2,9 +2,11 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: flogo-hello-world-api
-  description: Flogo Hello World REST API
+  description: Flogo Hello World Async API
   tags:
-    - rest
+  - kafka
+  - messaging
+  - event-driven-system
   links:
     - url: https://github.com/mmussett/developer-hub-eda
       title: GitHub Repo 
