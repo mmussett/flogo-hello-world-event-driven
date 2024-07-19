@@ -6,20 +6,20 @@ metadata:
   tags:
     - rest
   links:
-    - url: https://github.com/mmussett/flogo-hello-world
+    - url: https://github.com/mmussett/developer-hub-eda
       title: GitHub Repo 
       icon: github 
-    - url: https://github.com/mmussett/flogo-hello-world/blob/main/api-spec/openapi.yaml
+    - url: https://github.com/mmussett/developer-hub-eda/blob/main/api-spec/asyncapi.yaml
       title: API Spec 
       icon: code
-    - url: https://editor.swagger.io/?spec=https://github.com/mmussett/flogo-hello-world/blob/main/api-spec/openapi.yaml
+    - url: https://editor.swagger.io/?spec=https://github.com/mmussett/developer-hub-eda/blob/main/api-spec/asyncapi.yaml
       title: Swagger Editor 
       icon: code
 spec:
-  type: openapi
+  type: asyncapi
   lifecycle: experimental
   owner: flogo-developers
   apiConsumedBy: 
     - components:flogo-hello-world
   definition:
-    $text: ./api-spec/openapi.yaml
+    $text: ./api-spec/asyncapi.yaml
