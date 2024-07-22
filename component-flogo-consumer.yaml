@@ -24,6 +24,6 @@ spec:
   system: event-driven-system
   owner: flogo-developers
   consumesApi:
-    - components: flogo-hello-world-async-api
+    - component:flogo-hello-world-async-api
   dependsOn:
-    - components: hello-world-event
+    - component:hello-world-event
