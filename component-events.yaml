@@ -6,6 +6,13 @@ metadata:
   description: Some description of the event component
   tags:
   - event
+  links:
+    - title: Repository
+      description: GitHub repository
+      url: https://github.com/mmussett/developer-hub-eda
+    - title: VSCode
+      description: Edit in VSCode
+      url: vscode://vscode.git/clone?url=https://github.com/mmussett/flogo-hello-world-event-driven/edit/main/component-events.yaml
 spec:
   type: event
   lifecycle: production
