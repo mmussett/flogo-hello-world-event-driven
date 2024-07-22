@@ -23,7 +23,6 @@ spec:
   owner: flogo-developers
   system: event-driven-system
   consumesApis: 
-    - component:flogo-hello-world-event-consumer
-    - component:flogo-hello-world-event-producer
+    - flogo-hello-world-event-consumer
   definition:
     $text: ./api-spec/asyncapi.yaml
