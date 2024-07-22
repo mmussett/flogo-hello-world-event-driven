@@ -18,4 +18,7 @@ spec:
   owner: group:kafka-messaging-group
   subcomponentOf: kafka-broker
   system: event-driven-system
+  dependencyOf:
+    - component:flogo-hello-world-event-publisher
+    - component:flogo-hello-world-event-subscriber
   
