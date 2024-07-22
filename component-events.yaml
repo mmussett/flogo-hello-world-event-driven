@@ -11,9 +11,9 @@ spec:
   lifecycle: production
   owner: group:kafka-messaging-group
   system: event-driven-system
-  publishedBy:
+  ownedBy:
   - flogo-hello-world-event-publisher
-  consumedBy:
+  partOf:
   - flogo-hello-world-event-subscriber
   schema:
     type: json
