@@ -22,7 +22,9 @@ spec:
   lifecycle: experimental
   owner: flogo-developers
   system: event-driven-system
-  consumeAPIs: 
+  dependsOn: 
     - component: flogo-hello-world-event-consumer
+  dependencyOf:
+    - component: flogo-hello-world-event-provider
   definition:
     $text: ./api-spec/asyncapi.yaml
