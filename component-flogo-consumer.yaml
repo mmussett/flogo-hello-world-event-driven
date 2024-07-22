@@ -25,3 +25,5 @@ spec:
   owner: flogo-developers
   consumesApi:
     - components: flogo-hello-world-async-api
+  dependsOn:
+    - components: hello-world-event
