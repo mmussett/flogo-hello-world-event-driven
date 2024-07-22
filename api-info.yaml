@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: flogo-hello-world-api
+  name: flogo-hello-world-async-api
   description: Flogo Hello World Async API
   tags:
   - kafka
