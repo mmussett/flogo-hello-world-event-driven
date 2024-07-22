@@ -21,6 +21,7 @@ spec:
   type: asyncapi
   lifecycle: experimental
   owner: flogo-developers
+  system: event-driven-system
   consumesApis: 
     - component:flogo-hello-world-event-consumer
     - component:flogo-hello-world-event-producer
