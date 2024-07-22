@@ -23,7 +23,7 @@ spec:
   lifecycle: production
   system: event-driven-system
   owner: flogo-developers
-  consumesApi:
+  consumesApis:
     - component:flogo-hello-world-async-api
   dependsOn:
     - component:hello-world-event
