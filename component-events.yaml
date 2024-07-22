@@ -24,4 +24,4 @@ spec:
   - component:flogo-hello-world-event-subscriber
   schema:
     type: json
-    ref: https://github.com/
+    ref: https://github.com/mmussett/flogo-hello-world-event-driven/schemas/event.json
