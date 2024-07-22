@@ -1,0 +1,29 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: flogo-hello-world-event-producer
+  description: Flogo version of hello-world
+  tags:
+    - flogo
+    - kafka
+    - messaging
+    - event-driven-system
+  links:
+    - title: Repository
+      description: GitHub repository
+      url: https://github.com/mmussett/developer-hub-eda
+    - title: VSCode
+      description: Edit in VSCode
+      url: vscode://vscode.git/clone?url=https://github.com/mmussett/developer-hub-eda
+  annotations:
+    github.com/project-slug: mmussett/mmussett/developer-hub-eda
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: component
+  lifecycle: production
+  system: event-driven-system
+  owner: flogo-developers
+  providesApis:
+    - component:flogo-hello-world-async-api
+  dependsOn:
+    - component:hello-world-event
