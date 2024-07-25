@@ -4,7 +4,7 @@ metadata:
   name: event-driven-system
   description: 'An event-driven system'
   annotations:
-    github.com/project-slug: mmussett/flogo-hello-world
+    github.com/project-slug: mmussett/flogo-hello-world-event-driven
     backstage.io/techdocs-ref: dir:.
   tags:
     - eda

@@ -1,8 +1,8 @@
 apiVersion: backstage.io/v1alpha1
 kind: Location
 metadata:
-  name: all-flogo-hello-world-importer-components
-  description: A collection of all components
+  name: all-flogo-hello-world-event-driven-importer-components
+  description: A collection of all components for flogo-hello-world-event-driven demo
 spec:
   targets:
     - ./groups.yaml
@@ -12,5 +12,6 @@ spec:
     - ./component-channels.yaml
     - ./component-events.yaml
     - ./component-flogo-consumer.yaml
+    - ./component-flogo-producer.yaml
 
     
