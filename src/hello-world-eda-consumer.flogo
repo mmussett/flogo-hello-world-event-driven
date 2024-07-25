@@ -8,8 +8,8 @@
     "github.com/project-flogo/contrib/function/string",
     "github.com/tibco/wi-plugins/contributions/kafka/src/app/Kafka/connector/kafka"
   ],
-  "name": "hello-world-eda",
-  "description": "",
+  "name": "hello-world-eda-consumer",
+  "description": "Simple hello-world event-driven demo",
   "version": "1.0.0",
   "type": "flogo:app",
   "appModel": "1.1.1",
@@ -25,7 +25,7 @@
       "id": "KafkaConsumer",
       "handlers": [
         {
-          "description": "",
+          "description": "Consumer Flow",
           "settings": {
             "topic": "helloworld",
             "topicPattern": "",
@@ -43,7 +43,7 @@
           "action": {
             "ref": "github.com/project-flogo/flow",
             "settings": {
-              "flowURI": "res://flow:helloWorldFlow"
+              "flowURI": "res://flow:consumerFlow"
             },
             "input": {
               "topic": "=$.topic",
@@ -56,24 +56,20 @@
           },
           "schemas": {
             "output": {
-              "jsonValue": {
-                "type": "json",
-                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"greeting\":{\"type\":\"string\"}}}",
-                "fe_metadata": "{\n    \"greeting\":\"Mark Mussett\"\n}"
-              }
+              "jsonValue": "schema://greeting"
             }
           },
-          "name": "helloWorldFlow"
+          "name": "consumerFlow"
         }
       ]
     }
   ],
   "resources": [
     {
-      "id": "flow:helloWorldFlow",
+      "id": "flow:consumerFlow",
       "data": {
-        "name": "helloWorldFlow",
-        "description": "",
+        "name": "consumerFlow",
+        "description": "Consumer Flow",
         "links": [
           {
             "id": 1,
@@ -180,6 +176,13 @@
       "value": 250
     }
   ],
+  "schemas": {
+    "greeting": {
+      "type": "json",
+      "value": "{\r\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r\n  \"type\": \"object\",\r\n  \"properties\": {\r\n    \"greeting\": {\r\n      \"type\": \"string\"\r\n    }\r\n  },\r\n  \"required\": [\r\n    \"greeting\"\r\n  ]\r\n}\r\n",
+      "fe_metadata": "{\r\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r\n  \"type\": \"object\",\r\n  \"properties\": {\r\n    \"greeting\": {\r\n      \"type\": \"string\"\r\n    }\r\n  },\r\n  \"required\": [\r\n    \"greeting\"\r\n  ]\r\n}\r\n"
+    }
+  },
   "connections": {
     "f768ee3f-8505-4af0-b9ae-225fa39400ba": {
       "id": "f768ee3f-8505-4af0-b9ae-225fa39400ba",
