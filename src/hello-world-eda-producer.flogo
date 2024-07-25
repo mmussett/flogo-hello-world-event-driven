@@ -1,0 +1,445 @@
+{
+  "imports": [
+    "github.com/project-flogo/flow",
+    "github.com/project-flogo/contrib/activity/noop",
+    "github.com/tibco/flogo-general/src/app/General/activity/mapper",
+    "github.com/tibco/wi-plugins/contributions/kafka/src/app/Kafka/activity/producer",
+    "github.com/tibco/flogo-general/src/app/General/activity/httpresponse",
+    "github.com/tibco/flogo-general/src/app/General/activity/actreply",
+    "github.com/tibco/flogo-general/src/app/General/trigger/rest",
+    "github.com/project-flogo/contrib/function/string",
+    "github.com/tibco/wi-plugins/contributions/kafka/src/app/Kafka/connector/kafka"
+  ],
+  "name": "hello-world-eda-producer",
+  "description": "",
+  "version": "1.0.0",
+  "type": "flogo:app",
+  "appModel": "1.1.1",
+  "tags": [],
+  "triggers": [
+    {
+      "ref": "#rest",
+      "name": "tibco-wi-rest",
+      "description": "Simple REST Trigger",
+      "settings": {
+        "port": 9999,
+        "APISpecUpdate": false,
+        "swagger": "",
+        "swaggerVersion": "v2",
+        "apiVersion": "1.0.0",
+        "secureConnection": false,
+        "serverKey": "",
+        "caCertificate": ""
+      },
+      "id": "ReceiveHTTPMessage",
+      "handlers": [
+        {
+          "description": "",
+          "settings": {
+            "Method": "POST",
+            "reqType": "application/json",
+            "Path": "/greeting",
+            "OutputValidation": false
+          },
+          "action": {
+            "ref": "github.com/project-flogo/flow",
+            "settings": {
+              "flowURI": "res://flow:ProducerFlow"
+            },
+            "input": {
+              "body": {
+                "mapping": {
+                  "greeting": "=$.body.greeting"
+                }
+              }
+            },
+            "output": {
+              "code": "=$.code",
+              "responseBody": "=$.responseBody"
+            }
+          },
+          "reply": {
+            "code": 200,
+            "configureResponseCodes": true,
+            "message": {}
+          },
+          "schemas": {
+            "reply": {
+              "data": "schema://greeting",
+              "responseBody": {
+                "type": "json",
+                "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}",
+                "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}"
+              },
+              "responseCodesSchema": {
+                "type": "json",
+                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"responseType\":{\"type\":\"string\"},\"responseSchema\":{\"type\":\"string\"},\"responseHeaders\":{\"type\":\"string\"}}}}",
+                "fe_metadata": "[{\"code\":\"200\",\"responseType\":\"object\",\"responseSchema\":\"{\\\"greeting\\\":\\\"\\\"}\",\"responseHeaders\":\"\"}]"
+              }
+            },
+            "output": {
+              "headers": {
+                "type": "json",
+                "value": "{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                "fe_metadata": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+              },
+              "body": "schema://greeting"
+            }
+          },
+          "name": "ProducerFlow"
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "flow:ProducerFlow",
+      "data": {
+        "name": "ProducerFlow",
+        "description": "",
+        "links": [
+          {
+            "id": 1,
+            "from": "StartActivity",
+            "to": "Mapper",
+            "type": "label",
+            "label": "StartActivity to Mapper"
+          },
+          {
+            "id": 2,
+            "from": "Mapper",
+            "to": "KafkaProducer",
+            "type": "label",
+            "label": "Mapper to KafkaProducer"
+          },
+          {
+            "id": 3,
+            "from": "KafkaProducer",
+            "to": "ConfigureHTTPResponse",
+            "type": "label",
+            "label": "KafkaProducer to ConfigureHTTPResponse"
+          },
+          {
+            "id": 4,
+            "from": "ConfigureHTTPResponse",
+            "to": "ReplyToTrigger",
+            "type": "label",
+            "label": "ConfigureHTTPResponse to ReplyToTrigger"
+          }
+        ],
+        "tasks": [
+          {
+            "id": "StartActivity",
+            "name": "StartActivity",
+            "description": "NoOp Activity",
+            "activity": {
+              "ref": "#noop"
+            }
+          },
+          {
+            "id": "Mapper",
+            "name": "Mapper",
+            "description": "Mapper Activity",
+            "activity": {
+              "ref": "#mapper",
+              "input": {
+                "input": {
+                  "mapping": {
+                    "greeting": "=string.concat(\"Hello, \",$flow.body.greeting)"
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": "schema://greeting"
+                },
+                "output": {
+                  "output": {
+                    "type": "json",
+                    "value": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"greeting\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"greeting\"\n  ]\n}",
+                    "fe_metadata": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"greeting\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"greeting\"\n  ]\n}"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "id": "KafkaProducer",
+            "name": "KafkaProducer",
+            "description": "",
+            "activity": {
+              "ref": "#producer",
+              "input": {
+                "kafkaConnection": "conn://e2729b40-1877-49b7-92d4-06888d5fb428",
+                "ackMode": "All",
+                "ackTimeout": 10000,
+                "partitioner": "Hash",
+                "compressionType": "None",
+                "valueType": "JSON",
+                "subjects": "String",
+                "versions": 1,
+                "maxRequestSize": 1048576,
+                "maxMessages": 0,
+                "frequency": 100,
+                "topic": "helloworld",
+                "partition": 0,
+                "key": "",
+                "stringValue": "",
+                "jsonValue": {
+                  "mapping": {
+                    "greeting": "=$flow.body.greeting"
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "jsonValue": "schema://greeting"
+                }
+              }
+            }
+          },
+          {
+            "id": "ConfigureHTTPResponse",
+            "name": "ConfigureHTTPResponse",
+            "description": "Configure HTTP Response Activity",
+            "activity": {
+              "ref": "#httpresponse",
+              "input": {
+                "trigger": "ReceiveHTTPMessage",
+                "responsecode": "200",
+                "input": {
+                  "mapping": {
+                    "body": {
+                      "greeting": "=$activity[Mapper].output.greeting"
+                    }
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"greeting\":{\"type\":\"string\"}}}}}",
+                    "fe_metadata": "{\"body\":{\"greeting\":\"\"}}"
+                  }
+                },
+                "output": {
+                  "response": {
+                    "type": "json",
+                    "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"greeting\":{\"type\":\"string\"}}}}}",
+                    "fe_metadata": "{\"body\":{\"greeting\":\"\"}}"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "id": "ReplyToTrigger",
+            "name": "ReplyToTrigger",
+            "description": "Reply back to the trigger and continue flow execution, it must be used only in the flow with the trigger configured.",
+            "activity": {
+              "ref": "#actreply",
+              "input": {
+                "reply": {
+                  "mapping": {
+                    "code": "=$activity[ConfigureHTTPResponse].code",
+                    "responseBody": {
+                      "body": "=$activity[Mapper].output"
+                    }
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "reply": {
+                    "type": "json",
+                    "value": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[]}",
+                    "fe_metadata": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[]}"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "fe_metadata": "eyJTdGFydEFjdGl2aXR5Ijp7IngiOjEwMCwieSI6MTAwfSwiTWFwcGVyIjp7IngiOjIzMywieSI6OTh9LCJLYWZrYVByb2R1Y2VyIjp7IngiOjQ3MywieSI6OTd9LCJDb25maWd1cmVIVFRQUmVzcG9uc2UiOnsieCI6Njg2LCJ5Ijo5Mn0sIlJlcGx5VG9UcmlnZ2VyIjp7IngiOjkyNywieSI6OTF9fQ==",
+        "metadata": {
+          "input": [
+            {
+              "name": "headers",
+              "type": "object",
+              "schema": {
+                "type": "json",
+                "value": "{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}}"
+              }
+            },
+            {
+              "name": "body",
+              "type": "object",
+              "schema": {
+                "type": "json",
+                "value": "{\"greeting\":{\"type\":\"string\"}}"
+              }
+            },
+            {
+              "name": "requestURI",
+              "type": "string"
+            },
+            {
+              "name": "method",
+              "type": "string"
+            }
+          ],
+          "output": [
+            {
+              "name": "code",
+              "type": "integer"
+            },
+            {
+              "name": "responseBody",
+              "type": "object",
+              "schema": {
+                "type": "json",
+                "value": "{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}"
+              }
+            }
+          ],
+          "fe_metadata": {
+            "input": "{\"type\":\"object\",\"title\":\"ReceiveHTTPMessage\",\"properties\":{\"headers\":{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]},\"body\":{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"greeting\":{\"type\":\"string\"}},\"required\":[\"greeting\"]},\"requestURI\":{\"type\":\"string\",\"required\":false},\"method\":{\"type\":\"string\",\"required\":false}}}",
+            "output": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[]}"
+          }
+        },
+        "explicitReply": true
+      }
+    }
+  ],
+  "properties": [
+    {
+      "name": "Kafka.devKafkaServer.Brokers",
+      "type": "string",
+      "value": "kafka-server.vmlab.live:443"
+    },
+    {
+      "name": "Kafka.devKafkaServer.Connection_Timeout",
+      "type": "float64",
+      "value": 30
+    },
+    {
+      "name": "Kafka.devKafkaServer.Retry_Backoff",
+      "type": "float64",
+      "value": 250
+    }
+  ],
+  "schemas": {
+    "greeting": {
+      "type": "json",
+      "value": "{\r\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r\n  \"type\": \"object\",\r\n  \"properties\": {\r\n    \"greeting\": {\r\n      \"type\": \"string\"\r\n    }\r\n  },\r\n  \"required\": [\r\n    \"greeting\"\r\n  ]\r\n}\r\n",
+      "fe_metadata": "{\r\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r\n  \"type\": \"object\",\r\n  \"properties\": {\r\n    \"greeting\": {\r\n      \"type\": \"string\"\r\n    }\r\n  },\r\n  \"required\": [\r\n    \"greeting\"\r\n  ]\r\n}\r\n"
+    }
+  },
+  "connections": {
+    "e2729b40-1877-49b7-92d4-06888d5fb428": {
+      "id": "e2729b40-1877-49b7-92d4-06888d5fb428",
+      "name": "devKafkaServer",
+      "ref": "#kafka",
+      "isGlobal": false,
+      "settings": {
+        "name": "devKafkaServer",
+        "description": "Apache Kafka client configuration",
+        "brokers": "=$property[\"Kafka.devKafkaServer.Brokers\"]",
+        "authMode": "None",
+        "userName": "",
+        "password": "",
+        "clientID": "",
+        "clientSecret": "",
+        "tokenURL": "",
+        "scope": "",
+        "securityProtocol": "SASL_SSL",
+        "clientCert": "",
+        "clientKey": "",
+        "caCert": "",
+        "connectionTimeout": "=$property[\"Kafka.devKafkaServer.Connection_Timeout\"]",
+        "retryBackoff": "=$property[\"Kafka.devKafkaServer.Retry_Backoff\"]",
+        "retryMax": 3,
+        "refreshFrequency": 40,
+        "useSchmaRegistry": false,
+        "url": "",
+        "userName_schemaRegistry": "",
+        "password_schemaRegistry": ""
+      }
+    }
+  },
+  "contrib": "W3sicmVmIjoiZ2l0aHViLmNvbS90aWJjby9mbG9nby1nZW5lcmFsL3NyYy9hcHAvR2VuZXJhbCIsImlkIjoiR2VuZXJhbCIsInZlcnNpb24iOiIxLjYuMSIsInRhZyI6IjEuNi4xLWIwNyIsIm5hbWUiOiJHZW5lcmFsIiwiczNsb2NhdGlvbiI6IlRpYmNvL0dlbmVyYWwiLCJpc1VzZXJFeHRlbnNpb24iOmZhbHNlfSx7InJlZiI6ImdpdGh1Yi5jb20vdGliY28vd2ktcGx1Z2lucy9jb250cmlidXRpb25zL2thZmthL3NyYy9hcHAvS2Fma2EiLCJpZCI6IkthZmthIiwidmVyc2lvbiI6IjEuMy4yIiwidGFnIjoiMS4zLjItYjAxIiwibmFtZSI6IkFwYWNoZSBLYWZrYSIsInMzbG9jYXRpb24iOiJUaWJjby9LYWZrYSIsImlzVXNlckV4dGVuc2lvbiI6ZmFsc2V9XQ==",
+  "metadata": {
+    "endpoints": [
+      {
+        "protocol": "http",
+        "port": "9999",
+        "spec": {
+          "name": "hello-world-eda-producer",
+          "version": "1.0.0"
+        },
+        "title": "ReceiveHTTPMessage",
+        "swagger": {
+          "swagger": "2.0",
+          "info": {
+            "title": "hello-world-eda-producer",
+            "version": "1.0.0",
+            "description": "Simple REST Trigger"
+          },
+          "paths": {
+            "/greeting": {
+              "post": {
+                "summary": "ProducerFlow",
+                "operationId": "post_greeting",
+                "parameters": [
+                  {
+                    "name": "body",
+                    "in": "body",
+                    "description": "request body parameter",
+                    "required": true,
+                    "schema": {
+                      "$ref": "#/definitions/schema1"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "",
+                    "schema": {
+                      "$ref": "#/definitions/schema2"
+                    }
+                  }
+                },
+                "consumes": [
+                  "application/json"
+                ]
+              }
+            }
+          },
+          "definitions": {
+            "schema1": {
+              "type": "object",
+              "properties": {
+                "greeting": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "greeting"
+              ]
+            },
+            "schema2": {
+              "type": "object",
+              "properties": {
+                "greeting": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "flogoVersion": "2.25.0"
+  }
+}
