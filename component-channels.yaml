@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: helloworld
+  name: helloworld-topic
   description: Some description of the component-name component
   tags:
     - topic
