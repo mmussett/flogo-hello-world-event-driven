@@ -5,6 +5,7 @@ metadata:
   name: hello-world-event
   description: Some description of the event component
   tags:
+  - kafka
   - event
   links:
     - title: Repository
