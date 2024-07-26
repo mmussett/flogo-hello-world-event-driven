@@ -3,7 +3,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: hello-world-event
-  description: Some description of the event component
+  description: Hello-world event definition
   tags:
   - kafka
   - event
