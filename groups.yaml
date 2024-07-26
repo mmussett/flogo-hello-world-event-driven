@@ -1,3 +1,48 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: acme-solution-engineering
+  description: Our DevOps Group
+spec:
+  type: organization
+  profile:
+    displayName: ACME Solution Engineering
+    email: info@acme.com
+  children: [flogo-developers, sre]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: flogo-developers
+  description: Flogo Developers Group
+spec:
+  type: department
+  profile:
+    displayName: Flogo Developers
+    email: info@acme.com
+  parent: acme-solution-engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: sre
+  description: Our Site Reliability Engineers Group
+spec:
+  type: department
+  profile:
+    displayName: Site Reliability Engineering Group
+    email: info@acme.com
+  parent: acme-solution-engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: flogo-apps
+  description: Everything related to Flogo
+spec:
+  owner: group:flogo-developers
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Domain
