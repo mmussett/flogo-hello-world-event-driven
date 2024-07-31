@@ -34,7 +34,7 @@ jobs:
         run: pip install json-schema-for-humans
 
       - name: Generate Schema documents
-        run: generate-schema-doc --config template_name=md schemas docs
+        run: generate-schema-doc --config template_name=md schemas docs/schemas
 
       - name: Commit and Push changes
         run: |
