@@ -1,0 +1,21 @@
+{
+    "$id": "https://https://github.com/mmussett/flogo-hello-world-event-driven/schemas/event.schema.json",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description":"A representation of a greeting event",
+    "title": "Greeting Schema",
+    "type": "object",
+    "properties": {
+      "greeting": {
+        "type": "string", 
+        "description":"A simple greeting string", 
+        "examples": ["john doe", "mike smith"],
+        "maxLength":255,
+        "minLength": 1
+      }
+    },
+    "version":"1.0.0",
+    "required": [
+      "greeting"
+    ]
+  }
+  
