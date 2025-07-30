@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: flogo-hello-world-event-driven
+  annotations:
+    github.com/project-slug: mmussett/flogo-hello-world-event-driven
+spec:
+  type: other
+  lifecycle: unknown
+  owner: tibco-imported
